@@ -1,7 +1,7 @@
 import axios from "axios";
 
 import { env } from "../config/env";
-import { ForbiddenError } from "../utils/errors";
+import { ForbiddenError, ServiceUnavailableError } from "../utils/errors";
 
 interface AdjutorResponse {
   status?: string;
@@ -23,7 +23,7 @@ export class BlacklistService {
 
   async ensureUserIsNotBlacklisted(identity: string): Promise<void> {
     if (!env.adjutorApiKey) {
-      throw new ForbiddenError("Adjutor API key is missing; onboarding is blocked");
+      throw new ServiceUnavailableError("Blacklist verification is not configured");
     }
 
     try {
@@ -46,7 +46,7 @@ export class BlacklistService {
         throw error;
       }
 
-      throw new ForbiddenError("Unable to verify blacklist status; onboarding is blocked");
+      throw new ServiceUnavailableError("Unable to verify blacklist status right now");
     }
   }
 }

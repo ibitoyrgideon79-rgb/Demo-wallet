@@ -1,3 +1,4 @@
+import { randomInt } from "crypto";
 import type { Knex } from "knex";
 
 import { db } from "../config/database";
@@ -122,6 +123,6 @@ export class UserService {
   }
 
   private generateWalletNumber(): string {
-    return Array.from({ length: 10 }, () => Math.floor(Math.random() * 10).toString()).join("");
+    return Array.from({ length: 10 }, () => randomInt(0, 10).toString()).join("");
   }
 }
