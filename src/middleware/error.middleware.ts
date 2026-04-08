@@ -8,6 +8,13 @@ export function errorMiddleware(
   response: Response,
   _next: NextFunction,
 ): void {
+  if (error instanceof SyntaxError && "body" in error) {
+    response.status(400).json({
+      message: "Request body contains invalid JSON",
+    });
+    return;
+  }
+
   if (error instanceof AppError) {
     response.status(error.statusCode).json({
       message: error.message,

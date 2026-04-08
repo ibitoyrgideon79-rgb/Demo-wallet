@@ -2,6 +2,7 @@ import express from "express";
 
 import errorRoutes from "./routes";
 import { errorMiddleware } from "./middleware/error.middleware";
+import { notFoundMiddleware } from "./middleware/not-found.middleware";
 
 const app = express();
 
@@ -14,6 +15,7 @@ app.get("/health", (_request, response) => {
 });
 
 app.use("/api/v1", errorRoutes);
+app.use(notFoundMiddleware);
 app.use(errorMiddleware);
 
 export default app;
