@@ -61,60 +61,10 @@ The codebase uses a layered structure:
 - money is stored in minor units such as kobo to avoid floating point errors.
 - transfer operations create two ledger rows with the same `transaction_reference`.
 
-## E-R Diagram
 
-```mermaid
-erDiagram
-    USERS ||--|| WALLETS : owns
-    USERS ||--o{ AUTH_TOKENS : has
-    WALLETS ||--o{ WALLET_TRANSACTIONS : records
-    WALLETS o|--o{ WALLET_TRANSACTIONS : counterparty
+<h2>E-R Diagram</h2>
+<img src="./docs/erd.png" alt="E-R Diagram" width="900" />
 
-    USERS {
-      string id PK
-      string first_name
-      string last_name
-      string email UK
-      string phone_number UK
-      string bvn UK
-      datetime created_at
-      datetime updated_at
-    }
-
-    WALLETS {
-      string id PK
-      string user_id FK
-      string wallet_number UK
-      bigint balance_minor
-      string currency
-      datetime created_at
-      datetime updated_at
-    }
-
-    AUTH_TOKENS {
-      string id PK
-      string user_id FK
-      string token_hash UK
-      datetime expires_at
-      datetime last_used_at
-      datetime created_at
-      datetime updated_at
-    }
-
-    WALLET_TRANSACTIONS {
-      string id PK
-      string wallet_id FK
-      string transaction_reference
-      string type
-      bigint amount_minor
-      bigint balance_before_minor
-      bigint balance_after_minor
-      string counterparty_wallet_id FK
-      string description
-      datetime created_at
-      datetime updated_at
-    }
-```
 
 ## API Endpoints
 
