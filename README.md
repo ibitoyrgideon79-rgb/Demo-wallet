@@ -61,9 +61,9 @@ The codebase uses a layered structure:
 - money is stored in minor units such as kobo to avoid floating point errors.
 - transfer operations create two ledger rows with the same `transaction_reference`.
 
+## E-R Diagram
 
-<h2>E-R Diagram</h2>
-<img src=".docs\doc\demo-wallet_1.png alt="E-R Diagram" width="900" />
+![E-R Diagram](./docs/doc/demo-wallet_1.png)
 
 
 ## API Endpoints
